@@ -94,24 +94,24 @@ func PatchAlbum(c *gin.Context) {
 }
 
 func DeleteAlbum(c *gin.Context) {
-    id := c.Param("id")
-    idUUID, err := uuid.Parse(id)
+	id := c.Param("id")
+	idUUID, err := uuid.Parse(id)
 
-    if err != nil {
-        c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "invalid UUID format"})
-        return
-    }
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "invalid UUID format"})
+		return
+	}
 
-    var album models.Album
-    if err := db.DB.First(&album, idUUID).Error; err != nil {
+	var album models.Album
+	if err := db.DB.First(&album, idUUID).Error; err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 		return
 	}
 
-    if err := db.DB.Delete(&album).Error; err != nil {
-        c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-        return
-    }
-    
-    c.IndentedJSON(http.StatusOK, gin.H{"message": "Album deleted successfully"})
+	if err := db.DB.Delete(&album).Error; err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, gin.H{"message": "Album deleted successfully"})
 }

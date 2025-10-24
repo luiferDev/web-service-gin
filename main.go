@@ -11,15 +11,15 @@ import (
 
 func main() {
 
-    db.DBConnection()
-    db.DB.AutoMigrate(models.Album{})
+	db.DBConnection()
+	db.DB.AutoMigrate(models.Album{})
 
-    router := gin.Default()
-    router.GET("/albums", routes.GetAlbums)
-    router.GET("/albums/:id", routes.GetAlbumByID)
-    router.POST("/albums", routes.PostAlbums)
-    router.PATCH("/albums/:id", routes.PatchAlbum)
-    router.DELETE("/albums/:id", routes.DeleteAlbum)
+	router := gin.Default()
+	router.GET("/albums", routes.GetAlbums)
+	router.GET("/albums/:id", routes.GetAlbumByID)
+	router.POST("/albums", routes.PostAlbums)
+	router.PATCH("/albums/:id", routes.PatchAlbum)
+	router.DELETE("/albums/:id", routes.DeleteAlbum)
 
-    router.Run("localhost:8080")
+	router.Run("localhost:8080")
 }
