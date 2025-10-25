@@ -12,7 +12,7 @@ import (
 func main() {
 
 	db.DBConnection()
-	db.DB.AutoMigrate(models.Album{})
+	db.Model.AutoMigrate(models.Album{})
 
 	router := gin.Default()
 	router.GET("/albums", routes.GetAlbums)

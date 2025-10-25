@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+var Model *gorm.DB
 
 func DBConnection() {
 	// Load .env file
@@ -29,7 +29,7 @@ func DBConnection() {
 	)
 
 	var err error
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	Model, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("failed to connect database")
 	} else {

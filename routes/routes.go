@@ -15,7 +15,7 @@ func GetAlbums(c *gin.Context) {
 	var albums []models.Album
 
 	// Get all albums from database
-	if err := db.DB.Find(&albums).Error; err != nil {
+	if err := db.Model.Find(&albums).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -35,7 +35,7 @@ func PostAlbums(c *gin.Context) {
 	}
 
 	// Create album in database
-	if err := db.DB.Create(&newAlbum).Error; err != nil {
+	if err := db.Model.Create(&newAlbum).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -55,7 +55,7 @@ func GetAlbumByID(c *gin.Context) {
 	}
 
 	var album models.Album
-	if err := db.DB.First(&album, idUUID).Error; err != nil {
+	if err := db.Model.First(&album, idUUID).Error; err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 		return
 	}
@@ -74,7 +74,7 @@ func PatchAlbum(c *gin.Context) {
 	}
 
 	var album models.Album
-	if err := db.DB.First(&album, idUUID).Error; err != nil {
+	if err := db.Model.First(&album, idUUID).Error; err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 		return
 	}
@@ -85,7 +85,7 @@ func PatchAlbum(c *gin.Context) {
 		return
 	}
 
-	if err := db.DB.Model(&album).Updates(updates).Error; err != nil {
+	if err := db.Model.Model(&album).Updates(updates).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -103,12 +103,12 @@ func DeleteAlbum(c *gin.Context) {
 	}
 
 	var album models.Album
-	if err := db.DB.First(&album, idUUID).Error; err != nil {
+	if err := db.Model.First(&album, idUUID).Error; err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 		return
 	}
 
-	if err := db.DB.Delete(&album).Error; err != nil {
+	if err := db.Model.Delete(&album).Error; err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
